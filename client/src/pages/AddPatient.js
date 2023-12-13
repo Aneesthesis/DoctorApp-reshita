@@ -4,6 +4,7 @@ import { getError } from "../components/helpers/getError";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../store";
+import { Helmet } from "react-helmet-async";
 
 const AddPatient = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const AddPatient = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/users/patients/add",
+        "https://doctor-api-umjl.onrender.com/api/users/patients/add",
         {
           fullName: patientData.name,
           age: patientData.age,
@@ -57,6 +58,9 @@ const AddPatient = () => {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>Add Patient</title>
+      </Helmet>
       <main className="card">
         <div className="flex flex-col">
           <h1 className="heading text-center">Add Patient</h1>

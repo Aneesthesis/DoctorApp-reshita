@@ -4,6 +4,7 @@ import CreateNewPatientRecordIcon from "../components/UI/icons/CreateNewPatientR
 import ViewPatientsIcon from "../components/UI/icons/ViewPatientsIcon";
 import { Store } from "../store";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function Homepage() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -34,6 +35,9 @@ function Homepage() {
 
   return (
     <div className="container mx-auto">
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <main className="card p-6">
         <h1 className="text-2xl text-center font-bold mb-4">
           {`Welcome ${state.userInfo.fullName}`}

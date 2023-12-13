@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { getError } from "../components/helpers/getError";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -92,7 +93,7 @@ const DoctorProfile = () => {
         formPasswords.newPassword.length > 0 ? formPasswords.newPassword : null;
 
       const { data } = await axios.put(
-        `http://localhost:8080/api/users/profile`,
+        `https://doctor-api-umjl.onrender.com/api/users/profile`,
         {
           fullName: formDoctorData.fullName,
           email: formDoctorData.email,
@@ -108,7 +109,6 @@ const DoctorProfile = () => {
       localStorage.setItem(`userInfo`, JSON.stringify(data));
       toast.success("User Updated Successfully");
 
-      // Clear password fields after saving changes
       setFormPasswords(initialPasswords);
     } catch (error) {
       dispatch({ type: "UPDATE_FAIL" });
@@ -124,6 +124,9 @@ const DoctorProfile = () => {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>Doctor Profile</title>
+      </Helmet>
       <main className="card">
         <div className="flex flex-col">
           <h2 className="heading text-center">{`${state.userInfo.fullName}'s Profile`}</h2>

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { getError } from "../components/helpers/getError";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -59,7 +60,7 @@ const PatientProfile = () => {
     const fetchPatientInfo = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/users/patients/${id}`,
+          `https://doctor-api-umjl.onrender.com/api/users/patients/${id}`,
           { headers: { authorization: `Bearer ${userInfo.token}` } }
         );
 
@@ -99,7 +100,7 @@ const PatientProfile = () => {
       localDispatch({ type: "UPDATE_REQ" });
 
       const { data } = await axios.put(
-        `http://localhost:8080/api/users/patients/${id}`,
+        `https://doctor-api-umjl.onrender.com/api/users/patients/${id}`,
         {
           updatedPatientData: {
             fullName: formPatientData.fullName,
@@ -158,6 +159,9 @@ const PatientProfile = () => {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>Patient Profile</title>
+      </Helmet>
       <main className="card">
         <div className="flex flex-col">
           <h2 className="heading text-center">{`${patientName}'s Profile`}</h2>

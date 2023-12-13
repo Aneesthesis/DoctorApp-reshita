@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Store } from "../store";
 import { getError } from "../components/helpers/getError";
+import { Helmet } from "react-helmet-async";
 
 function Signup() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ function Signup() {
     }
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/users/signup",
+        "https://doctor-api-umjl.onrender.com/api/users/signup",
         {
           fullName,
           email,
@@ -65,6 +66,9 @@ function Signup() {
   return (
     <div>
       <div className="container">
+        <Helmet>
+          <title>Register</title>
+        </Helmet>
         <main className="card">
           <div className="flex flex-col">
             <h1 className="heading">Doctor Sign Up</h1>
