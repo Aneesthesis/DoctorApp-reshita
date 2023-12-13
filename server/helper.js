@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export function generateAuthToken(user) {
   const payload = {
@@ -6,7 +6,7 @@ export function generateAuthToken(user) {
     userEmail: user.email,
   };
 
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "24h" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "28d" });
 
   return token;
 }
@@ -28,3 +28,17 @@ export const isAuth = (req, res, next) => {
     res.status(401).send({ message: "No Token" });
   }
 };
+
+export function formatFullName(fullName) {
+  const prefix = "Dr. ";
+  const nameWithoutPrefix = fullName.slice(prefix.length);
+
+  const formattedName = nameWithoutPrefix
+    .split(" ")
+    .map((name) => {
+      return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    })
+    .join(" ");
+
+  return `${prefix}${formattedName}`;
+}

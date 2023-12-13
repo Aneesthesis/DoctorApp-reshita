@@ -7,10 +7,11 @@ const userSchema = new mongoose.Schema({
   },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  specialty: {
+  speciality: {
     type: String,
     required: true,
   },
+  contactInfo: { type: String, required: true, unique: true },
   patients: [
     {
       type: mongoose.Schema.Types.ObjectId,
