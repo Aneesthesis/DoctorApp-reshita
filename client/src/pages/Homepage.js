@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
 import EditDocDetailsIcon from "../components/UI/icons/EditDocDetailsIcon";
 import CreateNewPatientRecordIcon from "../components/UI/icons/CreateNewPatientRecordIcon";
 import ViewPatientsIcon from "../components/UI/icons/ViewPatientsIcon";
@@ -9,18 +8,28 @@ import { Link, useNavigate } from "react-router-dom";
 function Homepage() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!state.userInfo) {
-      navigate("/signin");
-    }
-  }, []);
+    const checkUser = async () => {
+      if (!state.userInfo) {
+        navigate("/signin");
+      }
+      setLoading(false);
+    };
+
+    checkUser();
+  }, [state.userInfo, navigate]);
 
   function logoutHandler() {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
     localStorage.removeItem("patients");
     navigate("/signin");
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -39,22 +48,18 @@ function Homepage() {
         <div className="flex justify-around">
           <div className="text-center">
             <div className="card">
-              {" "}
               <Link to={`/doctor/doctor-profile`}>
-                {" "}
                 <EditDocDetailsIcon />
                 <p>View / Edit your profile</p>
               </Link>
             </div>
             <div className="card">
-              {" "}
               <Link to="/doctor/add-patient">
                 <CreateNewPatientRecordIcon />
                 <p>Create New Patient Record</p>
               </Link>
             </div>
             <div className="card">
-              {" "}
               <Link to="/doctor/patients">
                 <ViewPatientsIcon />
                 <p>Your Patients</p>
