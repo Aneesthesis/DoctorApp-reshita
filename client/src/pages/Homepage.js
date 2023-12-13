@@ -39,15 +39,9 @@ function Homepage() {
         <title>Home</title>
       </Helmet>
       <main className="card p-6">
-        <h1 className="text-2xl text-center font-bold mb-4">
+        <h1 className=" text-center heading mb-4">
           {`Welcome ${state.userInfo.fullName}`}
         </h1>
-        <button
-          onClick={logoutHandler}
-          className="bg-rose-500 rounded-[4px] px-[20px] py-[10px] absolute top-30 text-white "
-        >
-          Log out
-        </button>
 
         <div className="flex justify-around">
           <div className="text-center">
@@ -71,6 +65,12 @@ function Homepage() {
             </div>
           </div>
         </div>
+        <button
+          onClick={logoutHandler}
+          className="bg-rose-500 rounded-[4px] px-[20px] py-[10px] text-white md:top-auto lg:top-auto lg:right-auto"
+        >
+          Log out
+        </button>
       </main>
     </div>
   );
