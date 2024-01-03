@@ -1,22 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Signin from "./pages/Signin";
-import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
 import { ToastContainer, toast } from "react-toastify";
 import NotFound from "./pages/NotFound";
 import DoctorProfile from "./pages/DoctorProfile";
-import { useContext } from "react";
-import { Store } from "./store";
+import React, { Suspense } from "react";
 import AddPatient from "./pages/AddPatient";
 import ViewPatients from "./pages/ViewPatients";
 import PatientProfile from "./pages/PatientProfile";
 import Footer from "./components/UI/Footer";
+const Homepage = React.lazy(() => import("./pages/Homepage"));
 
 function App() {
-  const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
-
   return (
     <>
       <div className="min-h-screen">
@@ -26,7 +22,22 @@ function App() {
             limit={1}
           />
           <Routes>
-            <Route path="/" element={<Homepage />}></Route>
+            <Route path="/" element={<Homepage />}>
+              <Route
+                index
+                element={
+                  <Suspense
+                    fallback={
+                      <div>
+                        Welcome Doctor! Please wait while we load your
+                        profile...
+                      </div>
+                    }
+                  />
+                }
+              />
+            </Route>
+
             <Route path="/signin" element={<Signin />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route

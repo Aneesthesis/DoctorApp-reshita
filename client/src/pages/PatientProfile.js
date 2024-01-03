@@ -137,7 +137,7 @@ const PatientProfile = () => {
         localDispatch({ type: "DELETE_REQ" });
 
         const { data } = await axios.delete(
-          `http://localhost:8080/api/users/patients/delete/${id}`,
+          `https://doctor-api-umjl.onrender.com/api/users/patients/delete/${id}`,
           { headers: { authorization: `Bearer ${userInfo.token}` } }
         );
 
