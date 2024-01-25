@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 
 import cors from "cors";
 import { userRouter } from "./routes/userRoute.js";
+import { FixHealthDoctors } from "./FixHealthDoctors.js";
 
 config();
 
@@ -21,17 +22,26 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/users", userRouter);
-//app.use("/api/patients", patie);
-
-// error handling middleware
-app.use((err, req, res, next) => {
-  res.status(500).send({ message: err.message });
+// Fix health doctors' data
+app.get("/api/fhdoctors", (req, res) => {
+  try {
+    res.send({ data: FixHealthDoctors });
+  } catch (error) {
+    res.send(error.message);
+  }
 });
+
+// user routes
+app.use("/api/users", userRouter);
 
 // Catch-all route for unknown queries
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Route not found" });
+});
+
+// error handling middleware
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
 });
 
 mongoose

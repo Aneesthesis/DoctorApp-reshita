@@ -10,6 +10,7 @@ import AddPatient from "./pages/AddPatient";
 import ViewPatients from "./pages/ViewPatients";
 import PatientProfile from "./pages/PatientProfile";
 import Footer from "./components/UI/Footer";
+import StopWatch from "./pages/StopWatch";
 const Homepage = React.lazy(() => import("./pages/Homepage"));
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
+      <StopWatch />
       <Footer />
     </>
   );
